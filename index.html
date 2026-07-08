@@ -2,182 +2,143 @@
 <html lang="es">
 
 <head>
-    <!-- ========================= -->
-    <!-- Configuración básica -->
-    <!-- ========================= -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Isaac Garcia | Front-End Developer</title>
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Isaac Garcia | Software Developer</title>
 
     <meta name="description"
-        content="Portafolio profesional de Isaac Garcia. Front-End Developer especializado en React, JavaScript, Python y desarrollo de aplicaciones web modernas.">
+        content="Portafolio profesional de Isaac Garcia, Desarrollador de Software.">
 
-    <meta name="keywords"
-        content="React, JavaScript, Front-End, Python, AWS, Portfolio, Web Developer">
-
-    <meta name="author" content="Isaac Garcia">
-
-    <!-- ========================= -->
-    <!-- Favicon -->
-    <!-- ========================= -->
-    <link rel="icon" href="assets/icons/favicon.png">
-
-    <!-- ========================= -->
-    <!-- Google Fonts -->
-    <!-- ========================= -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-
-    <link rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
-
-    <!-- ========================= -->
-    <!-- Icons -->
-    <!-- ========================= -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
-    <!-- ========================= -->
     <!-- CSS -->
-    <!-- ========================= -->
-    <link rel="stylesheet"
-        href="css/style.css">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <!-- ICONOS -->
+
+    <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        rel="stylesheet">
 
 </head>
 
 <body>
 
-    <!--====================================-->
-    <!-- Loader -->
-    <!--====================================-->
+    <!-- PRELOADER -->
 
-    <div id="loader">
+    <div id="preloader"></div>
 
-    </div>
+    <!-- PARTICLES -->
 
-    <!--====================================-->
-    <!-- Cursor -->
-    <!--====================================-->
+    <div id="particles-js"></div>
 
-    <div class="cursor"></div>
+    <!-- NAVBAR -->
 
-    <!--====================================-->
-    <!-- Header -->
-    <!--====================================-->
+    <header class="header">
 
-    <header>
-
-        <div class="container">
+        <nav class="navbar">
 
             <a href="#" class="logo">
-
-                Isaac Garcia
-
+                Isaac<span>.</span>
             </a>
 
-            <nav>
+            <ul class="nav-links">
 
-                <ul>
+                <li><a href="#home">Inicio</a></li>
 
-                    <li><a href="#home">Inicio</a></li>
+                <li><a href="#about">Sobre mí</a></li>
 
-                    <li><a href="#about">Sobre mí</a></li>
+                <li><a href="#skills">Skills</a></li>
 
-                    <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Proyectos</a></li>
 
-                    <li><a href="#projects">Proyectos</a></li>
+                <li><a href="#contact">Contacto</a></li>
 
-                    <li><a href="#experience">Experiencia</a></li>
+            </ul>
 
-                    <li><a href="#contact">Contacto</a></li>
-
-                </ul>
-
-            </nav>
-
-            <button class="menu-btn">
-
+            <div class="menu-btn">
                 <i class="fa-solid fa-bars"></i>
+            </div>
 
-            </button>
-
-        </div>
+        </nav>
 
     </header>
 
-    <!--====================================-->
-    <!-- Hero -->
-    <!--====================================-->
+    <!-- HERO -->
 
-    <section id="home">
+    <section class="home" id="home">
+
+        <div class="home-content">
+
+            <h3>Hola, soy</h3>
+
+            <h1>Isaac Garcia</h1>
+
+            <h2>
+
+                <span id="typing"></span>
+
+            </h2>
+
+            <p>
+
+                Desarrollador de Software enfocado en crear
+                aplicaciones web modernas, rápidas y escalables.
+
+            </p>
+
+            <div class="buttons">
+
+                <a href="#projects" class="btn">
+                    Ver proyectos
+                </a>
+
+                <a href="assets/cv.pdf"
+                    class="btn btn-outline">
+
+                    Descargar CV
+
+                </a>
+
+            </div>
+
+            <div class="social">
+
+                <a href="#"><i class="fab fa-github"></i></a>
+
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+
+                <a href="#"><i class="fab fa-instagram"></i></a>
+
+            </div>
+
+        </div>
+
+        <div class="home-image">
+
+            <img src="img/profile.png"
+                alt="Isaac Garcia">
+
+        </div>
 
     </section>
 
-    <!--====================================-->
-    <!-- Sobre mí -->
-    <!--====================================-->
+    <!-- JS -->
 
-    <section id="about">
+    <script src="js/main.js"></script>
 
-    </section>
+    <script src="js/typing.js"></script>
 
-    <!--====================================-->
-    <!-- Tecnologías -->
-    <!--====================================-->
+    <script src="js/particles.js"></script>
 
-    <section id="skills">
-
-    </section>
-
-    <!--====================================-->
-    <!-- Proyectos -->
-    <!--====================================-->
-
-    <section id="projects">
-
-    </section>
-
-    <!--====================================-->
-    <!-- Experiencia -->
-    <!--====================================-->
-
-    <section id="experience">
-
-    </section>
-
-    <!--====================================-->
-    <!-- Certificaciones -->
-    <!--====================================-->
-
-    <section id="certifications">
-
-    </section>
-
-    <!--====================================-->
-    <!-- Contacto -->
-    <!--====================================-->
-
-    <section id="contact">
-
-    </section>
-
-    <!--====================================-->
-    <!-- Footer -->
-    <!--====================================-->
-
-    <footer>
-
-    </footer>
-
-    <!--====================================-->
-    <!-- JavaScript -->
-    <!--====================================-->
-
-    <script src="js/script.js"></script>
+    <script src="js/scroll.js"></script>
 
 </body>
 

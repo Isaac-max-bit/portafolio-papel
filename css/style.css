@@ -1,301 +1,206 @@
 /*==================================================
-  ISAAC GARCIA PORTFOLIO
-  Version: 1.0
-===================================================*/
+  GOOGLE FONT
+==================================================*/
 
-/*==============================
-    GOOGLE FONT
-==============================*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
-/*==============================
-    VARIABLES
-==============================*/
+/*==================================================
+  VARIABLES
+==================================================*/
 
 :root{
 
-    /* Colors */
+    --bg-color:#080b16;
+    --second-bg:#111827;
 
-    --primary:#2563eb;
-    --primary-light:#3b82f6;
-    --secondary:#0f172a;
+    --card:#161f31;
 
-    --white:#ffffff;
-    --light:#f8fafc;
-    --gray:#64748b;
-    --gray-light:#cbd5e1;
-    --dark:#0f172a;
-    --black:#020617;
+    --main:#00E5FF;
+    --main-dark:#00BCD4;
 
-    --success:#10b981;
+    --text:#ffffff;
+    --text-light:#c9d1d9;
 
-    /* Gradient */
+    --shadow:0 0 30px rgba(0,229,255,.25);
 
-    --gradient:linear-gradient(
-        135deg,
-        #2563eb,
-        #7c3aed
-    );
+    --radius:16px;
 
-    /* Shadows */
+    --transition:.35s;
 
-    --shadow-sm:0 2px 10px rgba(0,0,0,.05);
-
-    --shadow-md:0 10px 30px rgba(0,0,0,.10);
-
-    --shadow-lg:0 20px 50px rgba(0,0,0,.15);
-
-    /* Radius */
-
-    --radius-sm:10px;
-
-    --radius-md:18px;
-
-    --radius-lg:28px;
-
-    /* Transition */
-
-    --transition:.35s ease;
+    --container:1200px;
 
 }
 
-/*==============================
-    RESET
-==============================*/
+
+/*==================================================
+ RESET
+==================================================*/
 
 *{
 
     margin:0;
-
     padding:0;
 
     box-sizing:border-box;
 
-}
+    text-decoration:none;
 
-html{
+    list-style:none;
 
     scroll-behavior:smooth;
 
 }
 
-body{
 
-    font-family:"Inter",sans-serif;
+html{
 
-    background:var(--light);
-
-    color:var(--dark);
-
-    overflow-x:hidden;
-
-    line-height:1.6;
+    font-size:62.5%;
 
 }
 
-/*==============================
-    GLOBAL
-==============================*/
+
+body{
+
+    background:var(--bg-color);
+
+    color:var(--text);
+
+    font-family:Poppins,sans-serif;
+
+    overflow-x:hidden;
+
+}
+
 
 img{
 
     display:block;
 
-    width:100%;
+    max-width:100%;
 
 }
 
-a{
+section{
 
-    text-decoration:none;
+    min-height:100vh;
 
-    color:inherit;
-
-}
-
-button{
-
-    border:none;
-
-    background:none;
-
-    cursor:pointer;
-
-    font-family:inherit;
-
-}
-
-ul{
-
-    list-style:none;
+    padding:10rem 9%;
 
 }
 
 .container{
 
-    width:min(1200px,90%);
+    width:min(var(--container),100%);
 
     margin:auto;
 
 }
 
-/*==============================
-    SECTION
-==============================*/
+/*====================================
+PARTICULAS
+====================================*/
 
-section{
-
-    padding:120px 0;
-
-}
-
-/*==============================
-    TITLES
-==============================*/
-
-.section-title{
-
-    font-size:3rem;
-
-    font-weight:800;
-
-    margin-bottom:20px;
-
-}
-
-.section-subtitle{
-
-    color:var(--gray);
-
-    font-size:1.1rem;
-
-    margin-bottom:60px;
-
-}
-
-/*==============================
-    HEADER
-==============================*/
-
-header{
+#particles-js{
 
     position:fixed;
 
-    top:0;
+    inset:0;
 
-    left:0;
+    overflow:hidden;
 
-    width:100%;
+    pointer-events:none;
 
-    backdrop-filter:blur(16px);
-
-    background:rgba(255,255,255,.75);
-
-    border-bottom:1px solid rgba(0,0,0,.05);
-
-    z-index:999;
+    z-index:-1;
 
 }
 
-header .container{
+.particle{
 
-    display:flex;
+    position:absolute;
 
-    justify-content:space-between;
+    bottom:-20px;
 
-    align-items:center;
+    background:#00E5FF;
 
-    height:80px;
+    border-radius:50%;
 
-}
+    opacity:.3;
 
-.logo{
-
-    font-size:1.5rem;
-
-    font-weight:800;
-
-    color:var(--primary);
+    animation:particleMove linear infinite;
 
 }
 
-nav ul{
+@keyframes particleMove{
 
-    display:flex;
+    from{
 
-    gap:40px;
-
-}
-
-nav a{
-
-    font-weight:600;
-
-    transition:var(--transition);
-
-}
-
-nav a:hover{
-
-    color:var(--primary);
-
-}
-
-.menu-btn{
-
-    display:none;
-
-    font-size:1.5rem;
-
-}
-
-/*==============================
-    HERO
-==============================*/
-
-#home{
-
-    min-height:100vh;
-
-    display:flex;
-
-    align-items:center;
-
-}
-
-/*==============================
-    RESPONSIVE
-==============================*/
-
-@media(max-width:992px){
-
-    nav{
-
-        display:none;
+        transform:translateY(0);
 
     }
 
-    .menu-btn{
+    to{
 
-        display:block;
+        transform:translateY(-120vh);
 
     }
 
 }
 
-@media(max-width:768px){
+/*====================================
+BOTON TOP
+====================================*/
 
-    .section-title{
+#topButton{
 
-        font-size:2.3rem;
+    position:fixed;
 
-    }
+    right:35px;
 
-    section{
+    bottom:35px;
 
-        padding:90px 0;
+    width:55px;
 
-    }
+    height:55px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#00E5FF;
+
+    color:#000;
+
+    font-size:24px;
+
+    cursor:pointer;
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transition:.35s;
+
+}
+
+#topButton.show{
+
+    opacity:1;
+
+    visibility:visible;
+
+}
+
+.header.sticky{
+
+    background:rgba(8,11,22,.92);
+
+    box-shadow:0 5px 20px rgba(0,0,0,.35);
+
+}
+
+.nav-links a.active{
+
+    color:var(--main);
 
 }
