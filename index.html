@@ -1,536 +1,184 @@
 <!DOCTYPE html>
-<html lang="es" data-theme="light">
+<html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alex Rivera — [FE_ENGINE_CORE_v5]</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<style>
-  :root {
-    /* Paleta Base (Modo Claro) */
-    --bg-base: #ffffff;
-    --surface: #ffffff;
-    --surface-alt: #f0f0f0;
-    --ink-pure: #000000;
-    --ink-inverse: #ffffff;
-    --acid-green: #ccff00;
-    --alert-red: #ff003c;
-    
-    --border-thick: 4px solid var(--ink-pure);
-    --border-thin: 2px solid var(--ink-pure);
-    
-    --font-sans: 'Plus Jakarta Sans', sans-serif;
-    --font-mono: 'Space Mono', monospace;
-  }
+    <!-- ========================= -->
+    <!-- Configuración básica -->
+    <!-- ========================= -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  /* Inversión de Paleta (Modo Oscuro) */
-  [data-theme="dark"] {
-    --bg-base: #050505;
-    --surface: #0a0a0a;
-    --surface-alt: #1a1a1a;
-    --ink-pure: #ffffff;
-    --ink-inverse: #000000;
-    --acid-green: #ccff00; /* Mantenemos la radiación visible */
-    --alert-red: #ff003c;
-    
-    --border-thick: 4px solid var(--ink-pure);
-    --border-thin: 2px solid var(--ink-pure);
-  }
+    <title>Isaac Garcia | Front-End Developer</title>
 
-  @media (prefers-reduced-motion: reduce) {
-    * { animation: none !important; transition: none !important; }
-  }
+    <meta name="description"
+        content="Portafolio profesional de Isaac Garcia. Front-End Developer especializado en React, JavaScript, Python y desarrollo de aplicaciones web modernas.">
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  
-  html { scroll-behavior: auto; background-color: var(--bg-base); transition: background-color 0s; }
+    <meta name="keywords"
+        content="React, JavaScript, Front-End, Python, AWS, Portfolio, Web Developer">
 
-  body {
-    color: var(--ink-pure);
-    font-family: var(--font-sans);
-    font-size: 16px; line-height: 1.4; overflow-x: hidden;
-    -webkit-font-smoothing: none; 
-  }
+    <meta name="author" content="Isaac Garcia">
 
-  /* RUIDO ESTÁTICO */
-  .noise-overlay {
-    position: fixed; top: -50%; left: -50%; width: 200vw; height: 200vh; pointer-events: none; z-index: 9999;
-    opacity: 0.04; background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
-    animation: tv-static 0.2s infinite steps(2); mix-blend-mode: exclusion;
-  }
-  @keyframes tv-static {
-    0% { transform: translate(0, 0); } 20% { transform: translate(-4%, 2%); }
-    40% { transform: translate(-2%, 6%); } 60% { transform: translate(6%, 0); }
-    80% { transform: translate(-6%, 0); } 100% { transform: translate(2%, 0); }
-  }
+    <!-- ========================= -->
+    <!-- Favicon -->
+    <!-- ========================= -->
+    <link rel="icon" href="assets/icons/favicon.png">
 
-  /* Retícula */
-  .tech-grid {
-    position: fixed; inset: 0; z-index: -1; pointer-events: none; background-size: 50px 50px;
-    background-image: 
-      linear-gradient(to right, rgba(128, 128, 128, 0.15) 2px, transparent 2px),
-      linear-gradient(to bottom, rgba(128, 128, 128, 0.15) 2px, transparent 2px);
-  }
-  
-  .layout-wrap { max-width: 1300px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+    <!-- ========================= -->
+    <!-- Google Fonts -->
+    <!-- ========================= -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
 
-  /* Ticker */
-  .marquee-container { background: var(--ink-pure); color: var(--acid-green); font-family: var(--font-mono); font-weight: 700; font-size: 0.85rem; padding: 8px 0; overflow: hidden; white-space: nowrap; border-bottom: var(--border-thick); text-transform: uppercase; }
-  .marquee-content { display: inline-block; animation: marquee 15s linear infinite; }
-  @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    <link rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
 
-  /* Header & Toggle */
-  header { border-bottom: var(--border-thick); background: var(--surface); position: sticky; top: 0; z-index: 100; }
-  .nav-container { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; }
-  .brand-terminal { font-family: var(--font-mono); font-weight: 700; font-size: 1.2rem; text-transform: uppercase; letter-spacing: -0.05em; background: var(--ink-pure); color: var(--ink-inverse); padding: 4px 12px; }
-  .brand-terminal span { color: var(--acid-green); margin-left: 8px; }
-  
-  nav ul { display: flex; gap: 0; list-style: none; font-family: var(--font-mono); font-size: 0.9rem; font-weight: 700; border: var(--border-thick); align-items: center; }
-  nav a, .theme-toggle { color: var(--ink-pure); text-decoration: none; text-transform: uppercase; padding: 8px 16px; display: block; border-right: var(--border-thick); cursor: pointer; background: transparent; border-top: none; border-bottom: none; border-left: none; font-family: var(--font-mono); font-size: 0.9rem; font-weight: 700; }
-  nav li:last-child a { border-right: none; }
-  nav a:hover, .theme-toggle:hover { background: var(--ink-pure); color: var(--ink-inverse); }
-  .theme-toggle { background: var(--surface-alt); }
-  
-  @media (max-width: 850px) { nav { display: none; } }
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
 
-  /* Hero */
-  .hero-canvas { padding: 80px 0; display: grid; grid-template-columns: 1fr 400px; gap: 0; border-bottom: var(--border-thick); }
-  @media (max-width: 1024px) { .hero-canvas { grid-template-columns: 1fr; padding: 40px 0; } }
-  .hero-text-block { border-right: var(--border-thick); padding-right: 40px; }
-  @media (max-width: 1024px) { .hero-text-block { border-right: none; padding-right: 0; border-bottom: var(--border-thick); padding-bottom: 40px; margin-bottom: 40px; } }
+    <!-- ========================= -->
+    <!-- Icons -->
+    <!-- ========================= -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-  /* Terminal Prompt Animado */
-  .terminal-prompt { display: inline-flex; font-family: var(--font-mono); font-size: 0.85rem; font-weight: 700; background: var(--alert-red); color: #fff; padding: 6px 12px; text-transform: uppercase; margin-bottom: 32px; border: var(--border-thick); box-shadow: 4px 4px 0 var(--ink-pure); min-width: 250px; }
-  .cursor-blink { display: inline-block; width: 8px; height: 1em; background: #fff; margin-left: 4px; animation: blink 1s step-end infinite; vertical-align: middle; }
+    <!-- ========================= -->
+    <!-- CSS -->
+    <!-- ========================= -->
+    <link rel="stylesheet"
+        href="css/style.css">
 
-  h1 { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.85; letter-spacing: -0.06em; text-transform: uppercase; margin-bottom: 32px; word-wrap: break-word; }
-  h1 mark { background: var(--acid-green); color: #000; padding: 0; display: inline-block; transform: skewX(-10deg); border: 4px solid #000; }
-  .hero-description { font-size: 1.4rem; font-weight: 700; max-width: 650px; color: var(--ink-pure); line-height: 1.3; }
-
-  /* Panel */
-  .control-panel { background: var(--acid-green); border: var(--border-thick); padding: 24px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 12px 12px 0 var(--ink-pure); color: #000; }
-  .panel-row { display: flex; justify-content: space-between; border-bottom: 2px solid #000; padding: 16px 0; font-family: var(--font-mono); font-size: 0.9rem; }
-  .panel-row:last-child { border: none; }
-  .panel-row span:first-child { font-weight: 700; text-transform: uppercase; }
-  .status-indicator { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; background: #000; color: var(--acid-green); padding: 4px 8px; }
-  .status-dot { width: 10px; height: 10px; background: var(--acid-green); animation: blink 0.5s infinite steps(2); }
-
-  @keyframes blink { from, to { opacity: 1; } 50% { opacity: 0; } }
-
-  /* Sections */
-  .section-block { padding: 100px 0; border-bottom: var(--border-thick); }
-  .section-header { margin-bottom: 64px; font-family: var(--font-mono); display: flex; align-items: baseline; gap: 16px; }
-  .section-num { font-size: 2rem; color: #000; font-weight: 900; background: var(--acid-green); padding: 0 12px; border: 4px solid var(--ink-pure); }
-  .section-header h2 { font-family: var(--font-sans); font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; text-transform: uppercase; letter-spacing: -0.04em; color: var(--ink-pure); }
-
-  /* Cards */
-  .industrial-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
-  @media (max-width: 900px) { .industrial-grid { grid-template-columns: 1fr; } }
-  .industrial-card { background: var(--surface); border: var(--border-thick); padding: 40px; position: relative; box-shadow: 10px 10px 0 var(--ink-pure); }
-  .industrial-card h3 { font-size: 2rem; font-weight: 900; text-transform: uppercase; margin-bottom: 24px; letter-spacing: -0.03em; border-bottom: var(--border-thick); padding-bottom: 16px; }
-  .industrial-card p { font-size: 1.1rem; font-weight: 500; font-family: var(--font-mono); }
-
-  /* Specs */
-  .spec-table { width: 100%; margin-top: 24px; border: var(--border-thick); }
-  .spec-row { display: grid; grid-template-columns: 1fr auto; padding: 16px; border-bottom: var(--border-thick); font-family: var(--font-mono); font-size: 1rem; background: var(--surface); }
-  .spec-row:last-child { border-bottom: none; }
-  .spec-row .tech-name { font-weight: 700; text-transform: uppercase; }
-  .spec-row .tech-level { background: var(--ink-pure); color: var(--ink-inverse); padding: 4px 12px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; }
-
-  /* Projects */
-  .project-strip-grid { display: grid; grid-template-columns: 1fr; gap: 40px; }
-  .project-strip { background: var(--surface); border: var(--border-thick); display: grid; grid-template-columns: 350px 1fr; box-shadow: 12px 12px 0 var(--ink-pure); }
-  @media (max-width: 850px) { .project-strip { grid-template-columns: 1fr; } }
-  .project-preview-box { background: var(--surface-alt); border-right: var(--border-thick); position: relative; display: flex; align-items: center; justify-content: center; min-height: 250px; overflow: hidden; }
-  @media (max-width: 850px) { .project-preview-box { border-right: none; border-bottom: var(--border-thick); } }
-  .project-content { padding: 40px; display: flex; flex-direction: column; justify-content: center; }
-  .project-meta { font-family: var(--font-mono); font-size: 1rem; font-weight: 700; background: var(--acid-green); color: #000; display: inline-block; padding: 4px 12px; border: 4px solid var(--ink-pure); margin-bottom: 24px; align-self: flex-start; }
-  .project-content h3 { font-size: 2.5rem; font-weight: 900; text-transform: uppercase; line-height: 1; margin-bottom: 16px; }
-  
-  .project-tags-brutal { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
-  .project-tags-brutal span { font-family: var(--font-mono); font-size: 0.85rem; font-weight: 700; border: var(--border-thick); padding: 6px 12px; text-transform: uppercase; background: var(--surface-alt); }
-
-  /* SVG Graphics Crudos */
-  .svg-wireframe { width: 150px; height: 150px; stroke: var(--ink-pure); stroke-width: 4; fill: none; }
-
-  /* Formulario Brutal */
-  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-  @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } }
-  
-  .brutal-form { display: flex; flex-direction: column; gap: 24px; }
-  .form-group { display: flex; flex-direction: column; gap: 8px; }
-  .form-group label { font-family: var(--font-mono); font-weight: 700; text-transform: uppercase; font-size: 0.9rem; }
-  .form-group input, .form-group textarea { 
-    background: var(--surface); color: var(--ink-pure); 
-    border: var(--border-thick); padding: 16px; 
-    font-family: var(--font-mono); font-size: 1rem; 
-    transition: none; outline: none; box-shadow: 4px 4px 0 var(--ink-pure);
-  }
-  .form-group input:focus, .form-group textarea:focus {
-    background: var(--acid-green); color: #000; transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink-pure);
-  }
-
-  /* Action Banner */
-  .action-banner { background: var(--ink-pure); color: var(--ink-inverse); padding: 60px 40px; border: var(--border-thick); box-shadow: 16px 16px 0 var(--alert-red); height: 100%; display: flex; flex-direction: column; justify-content: center; }
-  
-  .btn-brutal {
-    font-family: var(--font-mono); font-size: 1.2rem; font-weight: 700; text-decoration: none;
-    color: #000; background: var(--acid-green); padding: 20px 40px; border: 4px solid #000;
-    text-transform: uppercase; display: inline-flex; align-items: center; justify-content: center;
-    box-shadow: 8px 8px 0 var(--ink-inverse); cursor: pointer;
-  }
-  .btn-brutal:hover { background: var(--alert-red); color: #fff; }
-  .btn-brutal:active { transform: translate(8px, 8px); box-shadow: 0px 0px 0 var(--ink-inverse); }
-
-  .social-log { display: flex; gap: 0; margin-top: auto; padding-top: 40px; font-family: var(--font-mono); font-size: 1rem; font-weight: 700; }
-  .social-log a { color: var(--ink-inverse); text-decoration: none; text-transform: uppercase; padding: 8px 16px; border: var(--border-thick); border-color: var(--ink-inverse); margin-right: -4px; }
-  .social-log a:hover { background: var(--ink-inverse); color: var(--ink-pure); }
-
-  /* Animaciones Rígidas (Steps) - Intersection Observer */
-  .reveal-block { opacity: 0; transform: translateY(40px); transition: opacity 0.3s steps(3), transform 0.3s steps(3); }
-  .reveal-block.is-active { opacity: 1; transform: translateY(0); }
-
-  /* =========================================
-     FOOTER DEL SISTEMA (DIAGNÓSTICO)
-     ========================================= */
-  .system-footer {
-    margin-top: 100px;
-    border-top: var(--border-thick);
-    background: var(--ink-pure);
-    color: var(--surface);
-    font-family: var(--font-mono);
-    text-transform: uppercase;
-  }
-  
-  .footer-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-    padding: 60px 24px;
-    border-bottom: 2px solid var(--surface-alt);
-  }
-  
-  @media (max-width: 900px) {
-    .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
-  }
-  
-  @media (max-width: 500px) {
-    .footer-grid { grid-template-columns: 1fr; }
-  }
-
-  .footer-col { display: flex; flex-direction: column; gap: 8px; }
-  .footer-label { font-size: 0.75rem; color: var(--acid-green); font-weight: 700; border-bottom: 1px solid var(--surface-alt); padding-bottom: 8px; margin-bottom: 8px; }
-  .footer-col p { font-size: 0.95rem; font-weight: 700; margin: 0; line-height: 1.4; }
-  
-  .btn-top {
-    background: var(--surface);
-    color: var(--ink-pure);
-    text-decoration: none;
-    padding: 16px;
-    text-align: center;
-    font-weight: 900;
-    font-size: 1.1rem;
-    border: var(--border-thick);
-    border-color: var(--surface);
-    transition: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 6px 6px 0 var(--acid-green);
-    margin-top: auto;
-  }
-  
-  .btn-top:hover { background: var(--alert-red); color: #fff; border-color: #fff; box-shadow: 0 0 0 transparent; transform: translate(6px, 6px); }
-
-  .footer-bottom {
-    display: flex;
-    justify-content: space-between;
-    padding: 24px;
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--surface);
-  }
-  
-  @media (max-width: 600px) {
-    .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
-  }
-</style>
 </head>
+
 <body>
 
-<div class="noise-overlay"></div>
-<div class="marquee-container">
-  <div class="marquee-content">
-    /// STATUS: AVAILABLE /// FRONTEND ENGINEERING /// HIGH PERFORMANCE /// STRICT TYPING /// ZERO COMPROMISES /// STATUS: AVAILABLE /// FRONTEND ENGINEERING /// HIGH PERFORMANCE /// STRICT TYPING /// ZERO COMPROMISES ///
-  </div>
-</div>
+    <!--====================================-->
+    <!-- Loader -->
+    <!--====================================-->
 
-<div class="tech-grid"></div>
+    <div id="loader">
 
-<header>
-  <div class="layout-wrap nav-container">
-    <div class="brand-terminal">ALEX_RIVERA<span>SYS_v5.0</span></div>
-    <nav>
-      <ul>
-        <li><button class="theme-toggle" id="theme-btn">[SYS_MODE: LIGHT]</button></li>
-        <li><a href="#perfil">01_Perfil</a></li>
-        <li><a href="#specs">02_Specs</a></li>
-        <li><a href="#logs">03_Logs</a></li>
-        <li><a href="#enlace">04_Transmisión</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
-
-<main class="layout-wrap">
-  <section class="hero-canvas">
-    <div class="hero-text-block">
-      <div class="terminal-prompt" id="typewriter">
-        <span id="typing-text"></span><span class="cursor-blink"></span>
-      </div>
-      <h1>Construyo sistemas <mark>frontend</mark> letales.</h1>
-      <p class="hero-description">Optimización extrema del cliente. Arquitecturas TypeScript inquebrantables. Interfaces diseñadas para resistir impacto en producción masiva.</p>
-    </div>
-    
-    <div class="control-panel">
-      <div>
-        <div class="panel-row"><span>Ingeniero</span><strong>Alex Rivera</strong></div>
-        <div class="panel-row"><span>Sector</span><strong>Core UI</strong></div>
-        <div class="panel-row"><span>Base</span><strong>Medellín, CO</strong></div>
-        <div class="panel-row"><span>Reloj</span><strong>UTC -5</strong></div>
-      </div>
-      <div style="margin-top: 24px;">
-        <div class="panel-row" style="background: #000; color: #fff; padding: 16px; margin: -16px -24px 0; border-bottom: 4px solid #000;">
-          <span>Estado</span>
-          <div class="status-indicator"><span class="status-dot"></span>OPERATIVO</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section-block reveal-block" id="perfil">
-    <div class="section-header">
-      <span class="section-num">01</span>
-      <h2>Manifiesto Operativo</h2>
-    </div>
-    
-    <div class="industrial-grid">
-      <div class="industrial-card" style="background: var(--ink-pure); color: var(--ink-inverse);">
-        <h3 style="color: var(--acid-green); border-bottom-color: var(--ink-inverse);">Sin Concesiones</h3>
-        <p>Las interfaces son maquinaria pesada. El renderizado exige milisegundos, el estado global debe ser determinista, y el código debe estar fuertemente tipado. Cero supuestos. Validación constante.</p>
-      </div>
-      
-      <div class="industrial-card">
-        <h3>Métricas Críticas</h3>
-        <div class="spec-table">
-          <div class="spec-row"><span class="tech-name">Experiencia</span><span class="tech-level">+3 AÑOS</span></div>
-          <div class="spec-row"><span class="tech-name">LCP Promedio</span><span class="tech-level" style="background: var(--alert-red); color: #fff;">&lt; 1.0s</span></div>
-          <div class="spec-row"><span class="tech-name">Accesibilidad</span><span class="tech-level">WCAG AA</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section-block reveal-block" id="specs">
-    <div class="section-header">
-      <span class="section-num">02</span>
-      <h2>Carga Tecnológica</h2>
     </div>
 
-    <div class="industrial-grid">
-      <div class="industrial-card">
-        <h3>Motor UI</h3>
-        <div class="spec-table">
-          <div class="spec-row"><span class="tech-name">React / Next.js</span><span class="tech-level">L3_ADV</span></div>
-          <div class="spec-row"><span class="tech-name">TypeScript</span><span class="tech-level">L3_ADV</span></div>
-          <div class="spec-row"><span class="tech-name">Tailwind CSS</span><span class="tech-level">L4_MAX</span></div>
-          <div class="spec-row"><span class="tech-name">Vite Config</span><span class="tech-level">L3_ADV</span></div>
+    <!--====================================-->
+    <!-- Cursor -->
+    <!--====================================-->
+
+    <div class="cursor"></div>
+
+    <!--====================================-->
+    <!-- Header -->
+    <!--====================================-->
+
+    <header>
+
+        <div class="container">
+
+            <a href="#" class="logo">
+
+                Isaac Garcia
+
+            </a>
+
+            <nav>
+
+                <ul>
+
+                    <li><a href="#home">Inicio</a></li>
+
+                    <li><a href="#about">Sobre mí</a></li>
+
+                    <li><a href="#skills">Skills</a></li>
+
+                    <li><a href="#projects">Proyectos</a></li>
+
+                    <li><a href="#experience">Experiencia</a></li>
+
+                    <li><a href="#contact">Contacto</a></li>
+
+                </ul>
+
+            </nav>
+
+            <button class="menu-btn">
+
+                <i class="fa-solid fa-bars"></i>
+
+            </button>
+
         </div>
-      </div>
 
-      <div class="industrial-card">
-        <h3>Infra & Datos</h3>
-        <div class="spec-table">
-          <div class="spec-row"><span class="tech-name">Node.js / REST</span><span class="tech-level">L2_INT</span></div>
-          <div class="spec-row"><span class="tech-name">Supabase</span><span class="tech-level">L2_INT</span></div>
-          <div class="spec-row"><span class="tech-name">PostgreSQL</span><span class="tech-level">L2_INT</span></div>
-          <div class="spec-row"><span class="tech-name">GitHub Actions</span><span class="tech-level">L3_ADV</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
+    </header>
 
-  <section class="section-block reveal-block" id="logs">
-    <div class="section-header">
-      <span class="section-num">03</span>
-      <h2>Despliegues Confirmados</h2>
-    </div>
+    <!--====================================-->
+    <!-- Hero -->
+    <!--====================================-->
 
-    <div class="project-strip-grid">
-      <div class="project-strip">
-        <div class="project-preview-box">
-          <svg class="svg-wireframe" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="40" stroke-dasharray="4 4" />
-            <circle cx="50" cy="50" r="20" />
-            <line x1="10" y1="50" x2="90" y2="50" />
-            <line x1="50" y1="10" x2="50" y2="90" />
-            <rect x="45" y="45" width="10" height="10" fill="var(--acid-green)" stroke="none"/>
-          </svg>
-        </div>
-        <div class="project-content">
-          <span class="project-meta">ID: 001_ANALYTICS</span>
-          <h3>Data Dashboard</h3>
-          <p>Procesamiento de ráfagas en tiempo real vía Web Workers. Cero frames caídos. Arquitectura inmutable.</p>
-          <div class="project-tags-brutal">
-            <span>React</span><span>TypeScript</span><span>Workers</span>
-          </div>
-        </div>
-      </div>
+    <section id="home">
 
-      <div class="project-strip" style="background: var(--ink-pure); color: var(--ink-inverse);">
-        <div class="project-preview-box" style="background: var(--alert-red); border-right: none;">
-          <svg class="svg-wireframe" viewBox="0 0 100 100" style="stroke: #000;">
-            <line x1="20" y1="20" x2="80" y2="80" />
-            <line x1="20" y1="80" x2="80" y2="20" />
-            <line x1="20" y1="50" x2="80" y2="50" />
-            <rect x="10" y="10" width="20" height="20" fill="#000" />
-            <rect x="70" y="70" width="20" height="20" fill="#000" />
-            <rect x="10" y="70" width="20" height="20" fill="#000" />
-            <rect x="70" y="10" width="20" height="20" fill="#000" />
-            <circle cx="50" cy="50" r="10" fill="#fff" />
-          </svg>
-        </div>
-        <div class="project-content">
-          <span class="project-meta" style="background: var(--surface); border-color: var(--surface);">ID: 002_COLLAB</span>
-          <h3 style="border-bottom-color: var(--ink-inverse);">Kanban Distribuido</h3>
-          <p>Persistencia síncrona, caché agresiva y túneles WebSockets. Tolerancia a fallos de red integrada.</p>
-          <div class="project-tags-brutal">
-            <span style="color: var(--ink-pure);">Next.js</span><span style="color: var(--ink-pure);">Supabase</span><span style="color: var(--ink-pure);">WSS</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section-block reveal-block" id="enlace" style="border-bottom: none; padding-bottom: 0;">
-    <div class="section-header">
-      <span class="section-num">04</span>
-      <h2>Transmisión de Datos</h2>
-    </div>
+    <!--====================================-->
+    <!-- Sobre mí -->
+    <!--====================================-->
 
-    <div class="contact-grid">
-      <form class="brutal-form" onsubmit="event.preventDefault(); alert('SYSTEM_MSG: Payload enrutado con éxito.');">
-        <div class="form-group">
-          <label>ID_REMITENTE [Email]</label>
-          <input type="email" placeholder="usuario@dominio.com" required>
-        </div>
-        <div class="form-group">
-          <label>PAYLOAD [Mensaje]</label>
-          <textarea rows="5" placeholder="Ingresar parámetros de la misión..." required></textarea>
-        </div>
-        <button type="submit" class="btn-brutal" style="margin-top: 16px;">Ejecutar_Envio.exe</button>
-      </form>
+    <section id="about">
 
-      <div class="action-banner">
-        <h3 style="font-size: 2.5rem; font-weight: 900; text-transform: uppercase; margin-bottom: 16px;">Ping Remoto</h3>
-        <p style="font-family: var(--font-mono); font-size: 1.1rem; line-height: 1.5; margin-bottom: 0;">Operando desde el bloque de Medellín. Buscando sistemas complejos que requieran ingeniería sin compromisos estéticos, solo rendimiento bruto.</p>
-        
-        <div class="social-log">
-          <a href="#">LN_KEDIN</a>
-          <a href="#">GIT_HUB</a>
-          <a href="#">X_TWTR</a>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-</main>
+    <!--====================================-->
+    <!-- Tecnologías -->
+    <!--====================================-->
 
-<footer class="system-footer">
-  <div class="layout-wrap">
-    <div class="footer-grid">
-      
-      <div class="footer-col">
-        <span class="footer-label">SYS_ID // CORE</span>
-        <p>ALEX_RIVERA<br>V_5.0.1</p>
-      </div>
+    <section id="skills">
 
-      <div class="footer-col">
-        <span class="footer-label">TELEMETRÍA // LOC</span>
-        <p>MEDELLÍN, CO<br>[LAT: 6.244, LON: -75.581]</p>
-      </div>
+    </section>
 
-      <div class="footer-col">
-        <span class="footer-label">ESTADO // RED</span>
-        <p style="display: flex; align-items: center; gap: 8px;">
-          <span class="status-dot"></span> UPLINK_ACTIVO
-        </p>
-        <p style="font-size: 0.8rem; margin-top: 4px; color: var(--surface-alt);">MEM: STABLE</p>
-      </div>
+    <!--====================================-->
+    <!-- Proyectos -->
+    <!--====================================-->
 
-      <div class="footer-col">
-        <a href="#" class="btn-top">^ [GO_ROOT]</a>
-      </div>
-      
-    </div>
-  </div>
+    <section id="projects">
 
-  <div class="layout-wrap footer-bottom">
-    <span>© 2026 // EJECUCIÓN TERMINADA</span>
-    <span>DOMINIO_PÚBLICO // DISEÑO_BRUTAL</span>
-  </div>
-</footer>
+    </section>
 
-<script>
-  // 1. Alternador de Tema (Dark/Light)
-  const themeBtn = document.getElementById('theme-btn');
-  const htmlDoc = document.documentElement;
-  
-  themeBtn.addEventListener('click', () => {
-    const currentTheme = htmlDoc.getAttribute('data-theme');
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    htmlDoc.setAttribute('data-theme', newTheme);
-    themeBtn.textContent = `[SYS_MODE: ${newTheme.toUpperCase()}]`;
-  });
+    <!--====================================-->
+    <!-- Experiencia -->
+    <!--====================================-->
 
-  // 2. Efecto Máquina de Escribir (Terminal Prompt)
-  const textArray = "> root@sys:~$ ./init_alex_rivera.sh ... [OK]";
-  const typingElement = document.getElementById("typing-text");
-  let typeIndex = 0;
+    <section id="experience">
 
-  function typeWriter() {
-    if (typeIndex < textArray.length) {
-      typingElement.textContent += textArray.charAt(typeIndex);
-      typeIndex++;
-      // Velocidad de tipeo aleatoria y mecánica
-      setTimeout(typeWriter, Math.random() * 50 + 20);
-    }
-  }
-  // Iniciar al cargar
-  setTimeout(typeWriter, 500);
+    </section>
 
-  // 3. Animación Rígida por Scroll (Intersection Observer)
-  (function(){
-    const blocks = document.querySelectorAll('.reveal-block');
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      blocks.forEach(b => b.classList.add('is-active'));
-      return;
-    }
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting) {
-          entry.target.classList.add('is-active');
-          // Una vez revelado, dejamos de observar
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15 }); // 15% del elemento visible para detonar
-    
-    blocks.forEach(b => observer.observe(b));
-  })();
-</script>
+    <!--====================================-->
+    <!-- Certificaciones -->
+    <!--====================================-->
+
+    <section id="certifications">
+
+    </section>
+
+    <!--====================================-->
+    <!-- Contacto -->
+    <!--====================================-->
+
+    <section id="contact">
+
+    </section>
+
+    <!--====================================-->
+    <!-- Footer -->
+    <!--====================================-->
+
+    <footer>
+
+    </footer>
+
+    <!--====================================-->
+    <!-- JavaScript -->
+    <!--====================================-->
+
+    <script src="js/script.js"></script>
 
 </body>
+
 </html>
